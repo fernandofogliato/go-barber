@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@react-native-community/async-storage": "^1.6.3",
-    "immer": "^5.0.0",
-    "redux-persist": "^6.0.0"
-  }
-}
