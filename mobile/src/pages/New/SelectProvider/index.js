@@ -11,7 +11,7 @@ export default function SelectProvider({ navigation }) {
 
   useEffect(() => {
     async function loadProviders() {
-      const response = api.get('providers');
+      const response = await api.get('providers');
       setProviders(response.data);
     }
     loadProviders();
@@ -23,7 +23,7 @@ export default function SelectProvider({ navigation }) {
         <ProvidersList
           data={providers}
           keyExtractor={provider => String(provider.id)}
-          renderItem={({ provider }) => (
+          renderItem={({ item: provider }) => (
             <Provider
               onPress={() =>
                 navigation.navigate('SelectDateTime', { provider })

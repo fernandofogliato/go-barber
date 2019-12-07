@@ -21,18 +21,8 @@ function Dashboard({ isFocused }) {
   }, [isFocused]);
 
   async function handleCancel(id) {
-    const response = await api.delete(`appointments/${id}`);
-
-    setAppointments(
-      appointments.map(appointment =>
-        appointment.id === id
-          ? {
-              ...appointment,
-              cancelled_at: response.data.cancelled_at,
-            }
-          : appointment
-      )
-    );
+    await api.delete(`appointments/${id}`);
+    setAppointments(appointments.filter(appointment => appointment.id !== id));
   }
 
   return (

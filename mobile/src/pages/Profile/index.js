@@ -41,7 +41,13 @@ export default function Profile() {
 
   function handleSubmit() {
     dispatch(
-      updateProfileRequest(name, email, oldPassword, password, confirmPassword)
+      updateProfileRequest({
+        name,
+        email,
+        oldPassword,
+        password,
+        confirmPassword,
+      })
     );
   }
 
