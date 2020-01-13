@@ -31,13 +31,13 @@ export const Content = styled.div`
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
       }
+    }
 
-      span {
-        color: #fb6f91;
-        align-self: flex-start;
-        margin: 0 0 10px;
-        font-weight: bold;
-      }
+    span {
+      color: #fb6f91;
+      align-self: flex-start;
+      margin: 0 0 10px;
+      font-weight: bold;
     }
 
     button {
