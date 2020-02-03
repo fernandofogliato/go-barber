@@ -20,7 +20,9 @@ class App {
   constructor() {
     this.server = express();
 
-    Sentry.init(sentryConfig);
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.init(sentryConfig);
+    }
 
     this.middlewares();
     this.routes();
@@ -37,7 +39,9 @@ class App {
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
     );
 
-    if (process.env.NODE_ENV !== 'development') {
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
+    if (process.env.NODE_ENV === 'production') {
       this.server.use(
         new RateLimit({
           store: new RateLimitRedis({
@@ -55,7 +59,10 @@ class App {
 
   routes() {
     this.server.use(routes);
-    this.server.use(Sentry.Handlers.errorHandler());
+
+    if (process.env.NODE_ENV === 'production') {
+      this.server.use(Sentry.Handlers.errorHandler());
+    }
   }
 
   exceptionHandler() {

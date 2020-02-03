@@ -22,20 +22,23 @@ import validateAppointmentStore from './app/validators/AppointmentStore';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-const bruteStore = new BruteRedis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-});
-
-const bruteForce = new Brute(bruteStore);
+if (process.env.NODE_ENV === 'production') {
+  const bruteStore = new BruteRedis({
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+  });
+  const bruteForce = new Brute(bruteStore);
+  routes.post(
+    '/sessions',
+    bruteForce.prevent,
+    validateSessionStore,
+    SessionController.store
+  );
+} else {
+  routes.post('/sessions', validateSessionStore, SessionController.store);
+}
 
 routes.post('/users', validateUserStore, UserController.store);
-routes.post(
-  '/sessions',
-  bruteForce.prevent,
-  validateSessionStore,
-  SessionController.store
-);
 
 routes.use(authMiddleware);
 

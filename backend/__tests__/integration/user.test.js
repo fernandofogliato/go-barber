@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import request from 'supertest';
+import redis from 'redis-mock';
 import app from '../../src/app';
 
 import factory from '../factories';
@@ -8,6 +9,7 @@ import truncate from '../util/truncate';
 describe('User', () => {
   beforeEach(async () => {
     await truncate();
+    redis.createClient();
   });
 
   it('should encrypt user password when new user created', async () => {

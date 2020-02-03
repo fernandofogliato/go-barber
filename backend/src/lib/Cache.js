@@ -1,5 +1,4 @@
 import Redis from 'ioredis';
-import * as RedisMock from 'redis-mock';
 
 class Cache {
   constructor() {
